@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipos del Fútbol Argentino</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 3rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="nombreEquipo">Cargando equipo...</div>
+    
+    <script>
+        // Lista de equipos de las diferentes divisiones del fútbol argentino
+        const equipos = [
+            // Liga Profesional
+            "Boca Juniors", "River Plate", "San Lorenzo", "Independiente", "Racing Club", 
+            "Vélez Sarsfield", "Newell's Old Boys", "Rosario Central", "Lanús", "Talleres", 
+            // Primera B Nacional
+            "Almagro", "Atlético de Rafaela", "Barracas Central", "Deportivo Maipú", 
+            "Gimnasia y Esgrima (Jujuy)", "Brown de Adrogué", "Estudiantes (Caseros)", 
+            "Temperley", "Chacarita Juniors", "Mitre (Santiago del Estero)", 
+            // B Metro
+            "Acassuso", "Atlanta", "Flandria", "San Telmo", "All boys", 
+            "Deportivo Morón", "Villa Dálmine", "Colegiales", "Defensores de Belgrano", 
+            "Platense", 
+            // Federal A
+            "Douglas Haig", "Sarmiento de Resistencia", "Central Norte (Salta)", "Cipolletti", 
+            "Sportivo Belgrano", "Talleres de Perico", "Chaco For Ever", "Boca Unidos", 
+            "Juventud Unida", "Estudiantes de Río Cuarto", 
+            // Primera C
+            "Argentino de Quilmes", "Central Córdoba (Rosario)", "Cañuelas", "Liniers (Buenos Aires)", 
+            "San Martín (Burzaco)", "Excursionistas", "El Porvenir", "Berazategui", "Luján", "Argentino de Rosario", 
+            // Promocional Amateur
+            "Club Atlético El Linqueño", "Club Atlético Defensores de Salto", "Club Deportivo Madryn", 
+            "Club Social y Deportivo Las Heras", "Deportivo Camioneros", "Club Atlético Estudiantes de Buenos Aires"
+        ];
+
+        // Variables para controlar la navegación por los equipos
+        let indiceActual = Math.floor(Math.random() * equipos.length);  // Inicia con un equipo aleatorio
+        let historial = [indiceActual];  // Guardar el historial de equipos visitados
+
+        // Referencia al elemento donde se mostrará el nombre del equipo
+        const nombreEquipoDiv = document.getElementById('nombreEquipo');
+
+        // Función para mostrar el nombre del equipo
+        function mostrarEquipo() {
+            nombreEquipoDiv.textContent = equipos[indiceActual];
+        }
+
+        // Función para cambiar al siguiente equipo
+        function siguienteEquipo() {
+            indiceActual = Math.floor(Math.random() * equipos.length);
+            historial.push(indiceActual);  // Guardar el nuevo equipo en el historial
+            mostrarEquipo();
+        }
+
+        // Función para retroceder al equipo anterior
+        function anteriorEquipo() {
+            if (historial.length > 1) {
+                historial.pop();  // Eliminar el equipo actual del historial
+                indiceActual = historial[historial.length - 1];  // Volver al equipo anterior
+                mostrarEquipo();
+            }
+        }
+
+        // Detectar clic izquierdo (siguiente equipo)
+        document.addEventListener('click', () => {
+            siguienteEquipo();
+        });
+
+        // Detectar clic derecho (anterior equipo)
+        document.addEventListener('contextmenu', (event) => {
+            event.preventDefault();  // Prevenir el menú contextual
+            anteriorEquipo();
+        });
+
+        // Inicializar con el primer equipo
+        mostrarEquipo();
+    </script>
+
+</body>
+</html>
